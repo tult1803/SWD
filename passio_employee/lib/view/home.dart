@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:passioemployee/model/getAPI_news.dart';
 import 'package:passioemployee/model/url/url_color.dart';
 import 'package:passioemployee/model/url/url_icon.dart';
 import 'package:passioemployee/presenter/presenter_home.dart';
@@ -34,7 +35,22 @@ class HomeState extends State<Home>{
   @override
   void initState() {
     _getToken();
+    print('Token get !!!');
+    _getNews();
   }
+    GetAPINews getNew = GetAPINews();
+    List<dynamic> data_list = [];
+    List<DataNews> data_list_news = [];
+   void  _getNews() async{
+     int i = 0;
+     data_list = await getNew.getNews(token);
+     print('${data_list.length}');
+     data_list.forEach((element) {
+       Map<dynamic, dynamic> data = element;
+       data_list_news.add(DataNews.fromJson(data));
+       print('ID: ${data_list_news[i++].id}');
+     });
+   }
 
   void _getToken()async{
     final prefs = await SharedPreferences.getInstance();
@@ -93,4 +109,7 @@ class HomeState extends State<Home>{
     );
   }
 
+}
+
+class DataNews {
 }
