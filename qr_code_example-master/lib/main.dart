@@ -39,7 +39,7 @@ class HomePageState extends State {
   void initState() {
     timer = Timer.periodic(Duration(seconds: 5), (time) async{
       DateTime now = DateTime.now();
-      String formattedDate = DateFormat('yyyy-MM-dd – kk:mm:ss').format(now);
+      String formattedDate = DateFormat('yyyy-MM-dd kk:mm:ss').format(now);
       setState(() {
         data = '${formattedDate};${storeId}';
       });
