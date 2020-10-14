@@ -33,10 +33,13 @@ class HomePage extends StatefulWidget{
 Timer timer;
 class HomePageState extends State {
   String urlImg = 'images/img01.png';
-   String data = "12345680";
-   String storeId = '1';
+  String data = "";
+  String storeId = '1';
   @override
   void initState() {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd kk:mm:ss').format(now);
+    data = '${formattedDate};${storeId}';
     timer = Timer.periodic(Duration(seconds: 5), (time) async{
       DateTime now = DateTime.now();
       String formattedDate = DateFormat('yyyy-MM-dd kk:mm:ss').format(now);
