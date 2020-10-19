@@ -44,13 +44,11 @@ class LoadState extends State{
           sharedPreferences.setString("token", data.access_token);
           sharedPreferences.setString("email", data.email);
           sharedPreferences.setString("username", data.user_name);
+          sharedPreferences.setString("id_emp", '${data.employeeId}');
           String store_name_emp;
           GetAPIProfile getApi = GetAPIProfile();
           DataProfile dataProfile = await getApi.getProfile(data.access_token);
-          dataProfile.data_store.forEach((element) {
-            store_name_emp = element.name;
-          });
-          sharedPreferences.setString("id_emp", '${dataProfile.id}');
+
           sharedPreferences.setString("name_emp", dataProfile.name);
           sharedPreferences.setString("short_name_emp", dataProfile.short_name);
           sharedPreferences.setString("address_emp", dataProfile.address);
