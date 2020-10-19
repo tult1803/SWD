@@ -42,23 +42,16 @@ class LoadState extends State{
         int status = await PostAPI.status;
         if (status == 200) {
           sharedPreferences.setString("token", data.access_token);
-          sharedPreferences.setString("email", data.email);
-          sharedPreferences.setString("username", data.user_name);
           sharedPreferences.setString("id_emp", '${data.employeeId}');
-          String store_name_emp;
           GetAPIProfile getApi = GetAPIProfile();
           DataProfile dataProfile = await getApi.getProfile(data.access_token);
 
           sharedPreferences.setString("name_emp", dataProfile.name);
-          sharedPreferences.setString("short_name_emp", dataProfile.short_name);
           sharedPreferences.setString("address_emp", dataProfile.address);
           sharedPreferences.setString("main_store_id", "${dataProfile.main_store_id}");
           sharedPreferences.setString("salary_emp", '${dataProfile.salary}');
           sharedPreferences.setString("phone_emp", dataProfile.phone_number);
           sharedPreferences.setString("email_emp", dataProfile.email);
-          sharedPreferences.setString("store_work_emp", '${store_name_emp}');
-          DemoState.username = data.user_name;
-          DemoState.email = data.email;
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (BuildContext context) => Home()), (
               Route<dynamic> route) => false);

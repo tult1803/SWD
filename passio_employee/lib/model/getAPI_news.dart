@@ -14,7 +14,7 @@ class GetAPINews{
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $token',
       },);
     print("Status News: ${response.statusCode}");
     if (response.statusCode == 200)  {

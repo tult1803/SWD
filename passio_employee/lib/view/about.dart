@@ -19,7 +19,6 @@ class Profile extends StatefulWidget{
 
 class ProfileState extends State<Profile>{
   String name, short_name;
-  String stores;
   int _selectedPage = 4;
   final _pageOptions = [
     Home(),
@@ -38,7 +37,6 @@ class ProfileState extends State<Profile>{
     setState((){
       name = prefs.getString('name_emp');
       short_name = prefs.getString('short_name_emp');
-      stores = prefs.get('store_work_emp');
     });
   }
 
@@ -54,23 +52,13 @@ class ProfileState extends State<Profile>{
         child: Column(
           children: [
             Container(
-              height: 150,
-              child: Column(
-                children: [
-                  info("13:00", "12:00", "20:00", stores, name, short_name),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
-                          btnTime(),
-                          btnShift("Bắt đầu giờ nghỉ", Colors.orangeAccent),
-                          Expanded(child: btnShift("Kết thúc ca", Colors.redAccent)),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+              height: 100,
+              child: Center(
+                child: Column(
+                  children: [
+                    info("13:00", "12:00", "20:00", name, short_name),
+                  ],
+                ),
               ),
             ),
             Expanded(

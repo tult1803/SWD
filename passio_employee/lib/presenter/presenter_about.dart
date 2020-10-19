@@ -177,34 +177,36 @@ Widget circle_avata(String short_name, Color color_status){
   );
 }
 
-Widget info(String time, String start_time, String end_time, String local, String full_name, String short_name){
+Widget info(String time, String start_time, String end_time, String full_name, String short_name){
   return Container(
     margin: EdgeInsets.only(left: 5),
     height: 90,
-    child: Row(
-      children: [
-        circle_avata("${short_name}", Colors.lightGreenAccent),
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: tittleName("${full_name}"),
-                ),
-                Container(
+    child: Center(
+      child: Row(
+        children: [
+          circle_avata("${short_name}", Colors.lightGreenAccent),
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Container(
                     alignment: Alignment.centerLeft,
-                    child: timeStart("${time}", "${local}")),
-                Container(
-                    margin: EdgeInsets.only(top: 2),
-                    alignment: Alignment.centerLeft,
-                    child: timeShift("${start_time}", "${end_time}")),
-              ],
+                    child: tittleName("${full_name}"),
+                  ),
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      child: timeStart("${time}"),),
+                  Container(
+                      margin: EdgeInsets.only(top: 2),
+                      alignment: Alignment.centerLeft,
+                      child: timeShift("${start_time}", "${end_time}")),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }
@@ -224,8 +226,8 @@ Widget tittleName(String name){
   ),);
 }
 
-Widget timeStart(String time, String local){
-  return Text("Bắt đầu ${time} tại ${local}", style: TextStyle(
+Widget timeStart(String time){
+  return Text("Bắt đầu ${time}", style: TextStyle(
       fontSize: 15,
 //      fontWeight: FontWeight.w600,
       color: Colors.black45

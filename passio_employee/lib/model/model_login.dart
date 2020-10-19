@@ -1,17 +1,15 @@
 class DataLogin {
-  final String user_name, email;
-  final String full_name, access_token;
+  final String access_token;
   final int employeeId;
+  final bool admin;
 
-  DataLogin({this.user_name, this.full_name, this.email, this.access_token, this.employeeId});
+  DataLogin({this.employeeId, this.access_token, this.admin});
 
   factory DataLogin.fromJson(Map<String, dynamic> json) {
     return DataLogin(
-      user_name: json['user_name'],
-      full_name: json['full_name'],
-      email: json['email'],
+      employeeId: json['employeeId'],
       access_token: json['token'],
-        employeeId: json['employeeId'],
+      admin: json['admin']
     );
   }
 }

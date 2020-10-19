@@ -61,7 +61,6 @@ class HomeState extends State<Home>{
     final prefs = await SharedPreferences.getInstance();
     setState((){
       token = prefs.getString('token');
-
     });
   }
   @override

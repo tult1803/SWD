@@ -1,16 +1,20 @@
 class DataNews {
-  final int id;
+  final int id, author_id;
   final String name, decription,content_html,date_create;
-  DataNews({this.id, this.name, this.decription, this.content_html, this.date_create});
+  final bool active;
+
+  DataNews({this.id, this.name, this.decription, this.content_html, this.date_create, this.active, this.author_id});
 
   factory DataNews.fromJson(Map<dynamic, dynamic> json) {
 
     return DataNews(
       id: json['id'],
-      name: json['name'],
-      decription:  json['decription'],
-      content_html:  json['content_html'],
-        date_create: json['date_create'],
+      name: json['title'],
+      decription:  json['shortContent'],
+      content_html:  json['content'],
+      date_create: json['createDate'],
+      active: json['active'],
+      author_id: json['authorId']
       // data_store: store_emp,
     );
   }
