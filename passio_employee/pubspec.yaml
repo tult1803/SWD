@@ -29,6 +29,12 @@ dependencies:
   random_color: ^1.0.5
   cupertino_icons: ^0.1.3
   table_calendar: ^2.2.3
+  flutter_launcher_icons: "^0.8.0"
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/icon.jpg"
 
 dev_dependencies:
   flutter_test:
