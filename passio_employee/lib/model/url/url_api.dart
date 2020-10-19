@@ -7,5 +7,5 @@ String url_main = 'https://tuanlm-hr.herokuapp.com';
 String url_Attendance = 'api/attendances';
 String url_Login = 'api/authenticate/login';
 String url_Profile = 'api/employee';
-String url_new= 'api/article/0';
+String url_new= 'api/article/1';
 String url_checkAttendace = 'api/check-finger';

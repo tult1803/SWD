@@ -184,7 +184,7 @@ Widget info(String time, String start_time, String end_time, String full_name, S
     child: Center(
       child: Row(
         children: [
-          circle_avata("${short_name}", Colors.lightGreenAccent),
+          circle_avata("", Colors.lightGreenAccent),
           Expanded(
             child: Container(
               margin: EdgeInsets.all(10),
