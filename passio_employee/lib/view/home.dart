@@ -2,6 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:passioemployee/model/getAPI_news.dart';
+import 'package:passioemployee/model/model_news.dart';
 import 'package:passioemployee/model/url/url_color.dart';
 import 'package:passioemployee/model/url/url_icon.dart';
 import 'package:passioemployee/presenter/presenter_home.dart';
@@ -34,6 +36,25 @@ class HomeState extends State<Home>{
   @override
   void initState() {
     _getToken();
+    print('Token get !!!');
+    _getNews();
+  }
+   GetAPINews getNew = GetAPINews();
+   List<dynamic> data_list = [];
+   List<DataNews> data_list_news = [];
+  void _getNews() async{
+    int i = 0;
+    data_list = await getNew.getNews(token);
+    print('${data_list.length}');
+    data_list.forEach((element) {
+      Map<dynamic, dynamic> data= element;
+      data_list_news.add(DataNews.fromJson(data));
+      print('ID: ${data_list_news[i++].id}');
+    });
+    // print('Data List: ${data_list.length}');
+    // for(int i =0; i< data_list.length; i++){
+    //   print('Code News: ${data_list[i].id}');
+    // }
   }
 
   void _getToken()async{
@@ -51,17 +72,38 @@ class HomeState extends State<Home>{
         leading: icon_appbar_home,
         title: Text("Tin tức", style: TextStyle(color: Colors.black),),
       ),
-      body: Center(
-        child: ListView(
-          children: [
-            cardNews("Phí cách ly 14 ngày tại Việt Nam: 22,5 - 88 triệu đồng, có thể ở khách sạn 5 sao?", "TTO - Theo chỉ đạo mới nhất của Thủ tướng Chính phủ, Việt Nam sẽ tổ chức cách ly có thu phí với người nhập cảnh từ ngày 1-9. Quá trình thực hiện ra sao?"),
-            cardNews("Lễ 2-9 đi đâu, chơi gì?", "TTO - Dịp lễ 2-9 năm nay, nhiều điểm vui chơi, du lịch tăng cường các biện pháp phòng dịch đồng thời đẩy mạnh khuyến mãi để thu hút khách, còn người dân cũng cân nhắc, lựa chọn các phương án vui chơi với tiêu chí hàng đầu là an toàn với dịch bệnh."),
-            cardNews("Ngày 1-9, TP.HCM tăng mưa, kèm lốc, gió mạnh", "TTO - Đài khí tượng thủy văn Nam Bộ nhận định thời tiết tại Nam Bộ nói chung và TP.HCM nói riêng hôm nay sẽ duy trì sáng nắng chiều mưa, mưa tăng cả diện và lượng."),
-            cardNews("TP.HCM - trung tâm tài chính, muộn còn hơn không!", "TTO - Bất cứ quốc gia nào, sự phát triển đều dựa vào hai cấu phần căn bản, đó là nền kinh tế thực thông qua sản xuất, kinh doanh... và nền kinh tế tài chính tiền tệ thông qua quá trình phân phối chu chuyển vốn trong thị trường, xã hội."),
-          ],
-        ),
-      ),
+      body: FutureBuilder(
+          future:  getNew.getNews(token),
+          builder: (context, snapshot) {
+            if(snapshot.hasError){
+              print(snapshot.error);
+            }
+            if(snapshot.hasData){
+              return  new  Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: data_list_news.length,
+                      itemBuilder: (context, index) {
+                        String dateTime = data_list_news[index].date_create;
+//                          if(data_list[index].employee_name == _nameEmp){
+                        return GestureDetector(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                            child: cardNews(data_list_news[index].name, data_list_news[index].content_html, '${dateTime.substring(0, 10).trim()}', '${data_list_news[index].id}'),
+                          ),
+                        );
+//                          }
+                      },
+                    ),
+                  ),
+                ],
+              );
+            }else {
+              return Center(child: CircularProgressIndicator());
+            }
 
+          } ),
 
      bottomNavigationBar: BottomNavigationBar(
 //       fixedColor: Color.fromARGB(255, 168,206,60),\

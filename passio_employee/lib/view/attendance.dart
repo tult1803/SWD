@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:passioemployee/model/getAPI_attendance.dart';
 import 'package:passioemployee/model/model_attendance.dart';
+import 'package:passioemployee/model/postAPI_checkAttendance.dart';
 import 'package:passioemployee/model/url/url_color.dart';
 import 'package:passioemployee/model/url/url_icon.dart';
 import 'package:passioemployee/presenter/presenter_attendace.dart';
@@ -20,7 +21,7 @@ class Attendance extends StatefulWidget{
   }
 }
 var qrcode;
-class AttendanceState extends State<Attendance>{
+class AttendanceState extends State<Attendance> {
   String _nameEmp;
   int _selectedPage = 2;
   String value;
@@ -37,119 +38,124 @@ class AttendanceState extends State<Attendance>{
     // TODO: implement initState
     getAttendance();
   }
-  void getAttendance() async{
+
+  void getAttendance() async {
     final prefs = await SharedPreferences.getInstance();
     _nameEmp = prefs.getString("name_emp");
     GetAPIAttendance getAPI = GetAPIAttendance();
-    setState(() async{
+    setState(() async {
       do {
         data_list = await getAPI.getAttendance(HomeState.token);
-        for(int i = 0; i < data_list.length; i++){
-          if(data_list[i].employee_name.contains(_nameEmp))  {
+        for (int i = 0; i < data_list.length; i++) {
+          if (data_list[i].employee_name.contains(_nameEmp)) {
 //            print('Count: $i');
 //            print("${data_list[i].employee_name}  --- $_nameEmp");
             data_list_name.add(data_list.elementAt(i));
 //            print("Data: ${data_list_name.length}");
           }
         }
-      }while(data_list.isEmpty);
+      } while (data_list.isEmpty);
     });
   }
+
   List<AttendanceAPI> data_list = [];
   List<AttendanceAPI> data_list_name = [];
+  PostAPIAttendance _postAPIAttendance = PostAPIAttendance();
+
   @override
   Widget build(BuildContext context) {
     GetAPIAttendance getAPI = GetAPIAttendance();
-    var size = MediaQuery.of(context).size;
+    var size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: color_main,
         leading: icon_appbar_attendance,
-        title: Text("Điểm danh",style: TextStyle(color: Colors.black)),
+        title: Text("Điểm danh", style: TextStyle(color: Colors.black)),
       ),
       body: FutureBuilder(
-          future:  getAPI.getAttendance(HomeState.token),
+          future: getAPI.getAttendance(HomeState.token),
           builder: (context, snapshot) {
-            if(snapshot.hasError){
+            if (snapshot.hasError) {
               print(snapshot.error);
             }
-            if(snapshot.hasData){
-              return  new  Column(
+            if (snapshot.hasData) {
+              return new Column(
                 children: [
-                   Center(child: Text("QR-Code: $qrcode")),
-            Container(
-             height: size.height * .2,
-             child: Center(
-                 child: RaisedButton(
-                   color: Color.fromARGB(255, 168,206,60),
-                   onPressed: () async{
-                     value = await FlutterBarcodeScanner.scanBarcode("#004297", "Cancel", false, ScanMode.QR);
-                     setState(() {
-//                       qrcode = await BarCode();
-                     qrcode = value;
-                     });
-                   },
-                   child: Container(
-                     alignment: Alignment.center,
-                     height: 50,
-                     width: 100,
-                     child: Text("QR-CODE", style: TextStyle(
-                       fontWeight: FontWeight.w700,
-                       fontSize: 16
-                     ),),
-                   ),
-                 ),
-             ),
-           ),
+                  Container(
+                    height: size.height * .2,
+                    child: Center(
+                      child: RaisedButton(
+                        color: Color.fromARGB(255, 168, 206, 60),
+                        onPressed: () async {
+                          value = await FlutterBarcodeScanner.scanBarcode(
+                              "#004297", "Cancel", false, ScanMode.QR);
+                          await checkAtt(value);
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 50,
+                          width: 100,
+                          child: Text("QR-CODE", style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16
+                          ),),
+                        ),
+                      ),
+                    ),
+                  ),
                   Expanded(
                     child: ListView.builder(
                       itemCount: data_list_name.length,
                       itemBuilder: (context, index) {
                         String check;
                         Color color;
-                        if(data_list_name[index].status == 0){
+                        if (data_list_name[index].status == 0) {
                           color = Colors.orangeAccent;
                           check = "Processing";
-                        }else
-                        if(data_list_name[index].status == 1){
-                          color = Color.fromARGB(255, 168,206,60);
+                        } else if (data_list_name[index].status == 1) {
+                          color = Color.fromARGB(255, 168, 206, 60);
                           check = "Present";
-                        }else if(data_list_name[index].status == 2){
-                          color = Color.fromARGB(255, 168,206,60);
+                        } else if (data_list_name[index].status == 2) {
+                          color = Color.fromARGB(255, 168, 206, 60);
                           check = "Reject";
-                        }else if(data_list_name[index].status == 3){
-                          color = Color.fromARGB(255, 168,206,60);
+                        } else if (data_list_name[index].status == 3) {
+                          color = Color.fromARGB(255, 168, 206, 60);
                           check = "Employee Submit";
-                        }else if(data_list_name[index].status == 4){
+                        } else if (data_list_name[index].status == 4) {
                           color = Colors.black45;
                           check = "Draft";
-                        } else if(data_list_name[index].status == 5){
+                        } else if (data_list_name[index].status == 5) {
                           color = Colors.black45;
                           check = "Closed";
-                        }else if(data_list_name[index].status == 6){
+                        } else if (data_list_name[index].status == 6) {
                           color = Colors.red;
                           check = "Absent";
                         };
 
 //                          if(data_list[index].employee_name == _nameEmp){
-                            return GestureDetector(
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                                child: container_attendance(color,Colors.white70, data_list_name[index].store_name, data_list_name[index].employee_name,data_list_name[index].shift_min.substring(0, 10), check),
-                              ),
-                            );
+                        return GestureDetector(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10.0, right: 10.0),
+                            child: container_attendance(color, Colors.white70,
+                                data_list_name[index].store_name,
+                                data_list_name[index].employee_name,
+                                data_list_name[index].shift_min.substring(
+                                    0, 10), check),
+                          ),
+                        );
 //                          }
                       },
                     ),
                   ),
                 ],
               );
-            }else {
+            } else {
               return Center(child: CircularProgressIndicator());
             }
-
-          } ),
-
+          }),
 
 
       bottomNavigationBar: BottomNavigationBar(
@@ -157,27 +163,85 @@ class AttendanceState extends State<Attendance>{
         currentIndex: 2,
         onTap: (int index) {
           setState(() {
-            if(index != 2) {
+            if (index != 2) {
               _selectedPage = index;
               Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => _pageOptions[_selectedPage]),
+                  MaterialPageRoute(
+                      builder: (context) => _pageOptions[_selectedPage]),
                       (route) => false);
-            }});
+            }
+          });
         },
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.fiber_new, color: icon_bottombar), title: Text("Home")),
+              icon: Icon(Icons.fiber_new, color: icon_bottombar),
+              title: Text("Home")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.people, color: icon_bottombar), title: Text("People")),
+              icon: Icon(Icons.people, color: icon_bottombar),
+              title: Text("People")),
           BottomNavigationBarItem(
               backgroundColor: color_bottombar,
-              icon: Icon(Icons.check_circle, color: icon_bottombar), title: Text("Điểm danh")),
+              icon: Icon(Icons.check_circle, color: icon_bottombar),
+              title: Text("Điểm danh")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.assignment, color: icon_bottombar), title: Text("Lịch")),
+              icon: Icon(Icons.assignment, color: icon_bottombar),
+              title: Text("Lịch")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle, color: icon_bottombar), title: Text("Cá nhân")),
+              icon: Icon(Icons.account_circle, color: icon_bottombar),
+              title: Text("Cá nhân")),
         ],
       ),
     );
+  }
+
+  void _showDialog(String error) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Thông báo"),
+          content: new Text("$error", style: TextStyle(
+            color: Colors.red,
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+          )),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    ).then((val) {
+      // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+      // builder: (BuildContext context) => LoginScreen()), (
+      // Route<dynamic> route) => false);
+    });
+  }
+
+  void checkAtt(String value) {
+    setState(() async {
+      var prefs = await SharedPreferences.getInstance();
+      String time;int storeId;
+      try {
+         time = await value.substring(0, value.indexOf(';'));
+         storeId = await  int.parse(value.substring(value.indexOf(';') + 1));
+      }catch (e) {
+        print(e);
+        return _showDialog('Quét mã ngu !!!');
+      };
+        int checkAtt = await _postAPIAttendance.checkAttendance(
+            1, time, prefs.getString('id_emp'), storeId, 1, 1);
+        if (checkAtt == 200) {
+          _showDialog('Điểm danh thành công !!!');
+        } else {
+          _showDialog('Điểm danh lỗi. Thử lại !!!');
+        }
+    });
   }
 }
