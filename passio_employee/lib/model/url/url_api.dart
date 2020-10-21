@@ -9,4 +9,4 @@ String url_People = 'api/employee/get-by-store';
 String url_Login = 'api/authenticate/login-for-mobile';
 String url_Profile = 'api/employee';
 String url_new= 'api/article/1';
-String url_checkAttendace = 'api/check-finger';
+String url_checkAttendace = 'api/attendance/check-attendance';

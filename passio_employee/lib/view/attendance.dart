@@ -13,19 +13,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'calendar.dart';
 import 'home.dart';
 import 'about.dart';
-class Attendance extends StatefulWidget{
+
+class Attendance extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return AttendanceState();
   }
 }
+
 var qrcode;
+
 class AttendanceState extends State<Attendance> {
   String _nameEmp;
   int _selectedPage = 2;
   String value;
-  final _pageOptions = [ // Thay Text bằng class để Na
+  final _pageOptions = [
+    // Thay Text bằng class để Na
     Home(),
     People(),
     Attendance(),
@@ -70,9 +74,7 @@ class AttendanceState extends State<Attendance> {
   @override
   Widget build(BuildContext context) {
     GetAPIAttendance getAPI = GetAPIAttendance();
-    var size = MediaQuery
-        .of(context)
-        .size;
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: color_main,
@@ -102,10 +104,11 @@ class AttendanceState extends State<Attendance> {
                           alignment: Alignment.center,
                           height: 50,
                           width: 100,
-                          child: Text("QR-CODE", style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16
-                          ),),
+                          child: Text(
+                            "QR-CODE",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700, fontSize: 16),
+                          ),
                         ),
                       ),
                     ),
@@ -137,16 +140,21 @@ class AttendanceState extends State<Attendance> {
                         } else if (data_list_people[index].status == 6) {
                           color = Colors.red;
                           check = "Absent";
-                        };
+                        }
+                        ;
 //                          if(data_list[index].employee_name == _nameEmp){
                         return GestureDetector(
                           child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 10.0, right: 10.0),
-                            child: container_attendance(color, Colors.white70,
+                            padding:
+                                const EdgeInsets.only(left: 10.0, right: 10.0),
+                            child: container_attendance(
+                                color,
+                                Colors.white70,
                                 data_list_people[index].store_name,
-                                data_list_people[index].shift_min.substring(
-                                    0, 10), check),
+                                data_list_people[index]
+                                    .shift_min
+                                    .substring(0, 10),
+                                check),
                           ),
                         );
 //                          }
@@ -159,8 +167,6 @@ class AttendanceState extends State<Attendance> {
               return Center(child: CircularProgressIndicator());
             }
           }),
-
-
       bottomNavigationBar: BottomNavigationBar(
         fixedColor: choose_bottombar,
         currentIndex: 2,
@@ -171,7 +177,7 @@ class AttendanceState extends State<Attendance> {
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                       builder: (context) => _pageOptions[_selectedPage]),
-                      (route) => false);
+                  (route) => false);
             }
           });
         },
@@ -204,11 +210,12 @@ class AttendanceState extends State<Attendance> {
         // return object of type Dialog
         return AlertDialog(
           title: new Text("Thông báo"),
-          content: new Text("$error", style: TextStyle(
-            color: Colors.red,
-            fontSize: 20,
-            fontWeight: FontWeight.w800,
-          )),
+          content: new Text("$error",
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+              )),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
@@ -230,21 +237,33 @@ class AttendanceState extends State<Attendance> {
   void checkAtt(String value) {
     setState(() async {
       var prefs = await SharedPreferences.getInstance();
-      String time;int storeId;
+      String time;
+      int storeId;
       try {
-         time = await value.substring(0, value.indexOf(';'));
-         storeId = await  int.parse(value.substring(value.indexOf(';') + 1));
-      }catch (e) {
+        time = await value.substring(0, value.indexOf(';'));
+        storeId = await int.parse(value.substring(value.indexOf(';') + 1));
+      } catch (e) {
         print(e);
         return _showDialog('Quét mã ngu !!!');
-      };
-        int checkAtt = await _postAPIAttendance.checkAttendance(
-            1, time, prefs.getString('id_emp'), storeId, 1, 1);
-        if (checkAtt == 200) {
-          _showDialog('Điểm danh thành công !!!');
-        } else {
-          _showDialog('Điểm danh lỗi. Thử lại !!!');
-        }
+      }
+      int checkAtt = await _postAPIAttendance.checkAttendance(time, prefs.getString('id_emp'), storeId, prefs.getString('token'));
+      print(time);
+      print(checkAtt);
+      if (checkAtt == 200) {
+        _showDialog('Điểm danh thành công !!!');
+        print("Điểm danh thành công");
+        GetAPIAttendance getAPI = GetAPIAttendance();
+        //setState(() async {
+          data_list_people = [];
+          data_list = await getAPI.getAttendance(HomeState.token);
+          data_list.forEach((element) {
+            Map<dynamic, dynamic> data = element;
+            data_list_people.add(AttendanceAPI.fromJson(data));
+          });
+        //});
+      } else {
+        _showDialog('Điểm danh lỗi. Thử lại !!!');
+      }
     });
   }
 }

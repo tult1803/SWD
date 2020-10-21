@@ -18,7 +18,7 @@ class Profile extends StatefulWidget{
 }
 
 class ProfileState extends State<Profile>{
-  String name;
+  String name = "    ";
   int _selectedPage = 4;
   final _pageOptions = [
     Home(),
