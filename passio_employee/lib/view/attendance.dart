@@ -151,9 +151,7 @@ class AttendanceState extends State<Attendance> {
                                 color,
                                 Colors.white70,
                                 data_list_people[index].store_name,
-                                data_list_people[index]
-                                    .shift_min
-                                    .substring(0, 10),
+                                data_list_people[index].shift_min,
                                 check),
                           ),
                         );
@@ -246,7 +244,8 @@ class AttendanceState extends State<Attendance> {
         print(e);
         return _showDialog('Quét mã ngu !!!');
       }
-      int checkAtt = await _postAPIAttendance.checkAttendance(time, prefs.getString('id_emp'), storeId, prefs.getString('token'));
+      int checkAtt = await _postAPIAttendance.checkAttendance(
+          time, prefs.getString('id_emp'), storeId, prefs.getString('token'));
       print(time);
       print(checkAtt);
       if (checkAtt == 200) {
@@ -254,12 +253,12 @@ class AttendanceState extends State<Attendance> {
         print("Điểm danh thành công");
         GetAPIAttendance getAPI = GetAPIAttendance();
         //setState(() async {
-          data_list_people = [];
-          data_list = await getAPI.getAttendance(HomeState.token);
-          data_list.forEach((element) {
-            Map<dynamic, dynamic> data = element;
-            data_list_people.add(AttendanceAPI.fromJson(data));
-          });
+        data_list_people = [];
+        data_list = await getAPI.getAttendance(HomeState.token);
+        data_list.forEach((element) {
+          Map<dynamic, dynamic> data = element;
+          data_list_people.add(AttendanceAPI.fromJson(data));
+        });
         //});
       } else {
         _showDialog('Điểm danh lỗi. Thử lại !!!');
