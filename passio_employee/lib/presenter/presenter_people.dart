@@ -57,7 +57,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:random_color/random_color.dart';
 
-Widget container_Calendar(int count,Color color_status,String name_emp, String date_time,String objective, bool check, String short_name){
+Widget container_Calendar(int count,Color color_status,String name_emp, String objective, bool check){
   RandomColor _randomColor = RandomColor(); // Random màu
   return Container(
     margin: EdgeInsets.only(left: 5, top: 10),
@@ -78,7 +78,7 @@ Widget container_Calendar(int count,Color color_status,String name_emp, String d
 //                  color: Colors.redAccent,
                   alignment: Alignment.center,
 //                  color: Colors.black,
-                  child: textName("${short_name}"),
+                  child: textName("${name_emp.substring(0, 1)}"),
                 ),
               ),
 //              Container(
@@ -103,6 +103,7 @@ Widget container_Calendar(int count,Color color_status,String name_emp, String d
           child: Container(
             width: 200,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 20.0, top: 10),
@@ -114,13 +115,13 @@ Widget container_Calendar(int count,Color color_status,String name_emp, String d
                     alignment: Alignment.centerLeft,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0, top: 10),
-                  child: Container(
-                    child: checkStatus(check, date_time, objective),
-                    alignment: Alignment.centerLeft,
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 20.0, top: 10),
+                //   child: Container(
+                //     child: checkStatus(check, objective),
+                //     alignment: Alignment.centerLeft,
+                //   ),
+                // ),
               ],
             ),
           ),

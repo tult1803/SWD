@@ -1,17 +1,22 @@
 class AttendanceAPI{
-  final int  status, id;
-  final String employee_name, shift_min, shift_max, store_name;
+  final int id, employeeId, storeId, shiftId, status;
+  final String note, shift_min, shift_max, store_name;
+  final bool present;
 
-  AttendanceAPI({this.employee_name, this.status, this.id, this.shift_min, this.shift_max, this.store_name});
+  AttendanceAPI({this.id, this.employeeId, this.storeId, this.store_name, this.present, this.shiftId, this.status, this.note, this.shift_min, this.shift_max});
 
   factory AttendanceAPI.fromJson(Map<dynamic, dynamic> json){
     return AttendanceAPI(
-      employee_name: json['employee_name'],
-      status: json['status'],
-      shift_min: json['shift_min'],
-      shift_max: json['shift_max'],
       id: json['id'],
-      store_name: json['store_name'],
+      employeeId: json['employeeId'],
+      storeId: json['storeId'],
+      store_name: json['storeNm'],
+      present: json['present'],
+      shiftId: json['shiftId'],
+      status: json['statusId'],
+      note: json['note'],
+      shift_min: json['start'],
+      shift_max: json['end']
     );
   }
 

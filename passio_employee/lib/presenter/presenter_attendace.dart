@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 
 
 
-Widget container_attendance(Color color_status,Color color, String store_name, String name_emp,String date_time,String status){
+Widget container_attendance(Color color_status,Color color, String store_name, String date_time,String status){
   return Container(
     margin: EdgeInsets.only(bottom: 3),
 //    height: 100,
@@ -23,7 +23,7 @@ Widget container_attendance(Color color_status,Color color, String store_name, S
               Padding(
                 padding: const EdgeInsets.only(left: 20.0, top: 10),
                 child: Container(
-                  child:  Text("${store_name} ( ${name_emp} )", overflow: TextOverflow.visible,style: TextStyle(
+                  child:  Text("${store_name}", overflow: TextOverflow.visible,style: TextStyle(
                     fontSize: 18,
                   ),),
                   alignment: Alignment.centerLeft,

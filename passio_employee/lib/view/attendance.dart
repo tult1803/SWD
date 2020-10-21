@@ -44,22 +44,27 @@ class AttendanceState extends State<Attendance> {
     _nameEmp = prefs.getString("name_emp");
     GetAPIAttendance getAPI = GetAPIAttendance();
     setState(() async {
-      do {
-        data_list = await getAPI.getAttendance(HomeState.token);
-        for (int i = 0; i < data_list.length; i++) {
-          if (data_list[i].employee_name.contains(_nameEmp)) {
-//            print('Count: $i');
-//            print("${data_list[i].employee_name}  --- $_nameEmp");
-            data_list_name.add(data_list.elementAt(i));
-//            print("Data: ${data_list_name.length}");
-          }
-        }
-      } while (data_list.isEmpty);
+//       do {
+//         data_list = await getAPI.getAttendance(HomeState.token);
+//         for (int i = 0; i < data_list.length; i++) {
+//           if (data_list[i].employee_name.contains(_nameEmp)) {
+// //            print('Count: $i');
+// //            print("${data_list[i].employee_name}  --- $_nameEmp");
+//             data_list.add(data_list.elementAt(i));
+// //            print("Data: ${data_list.length}");
+//           }
+//         }
+//       } while (data_list.isEmpty);
+      data_list = await getAPI.getAttendance(HomeState.token);
+      data_list.forEach((element) {
+        Map<dynamic, dynamic> data = element;
+        data_list_people.add(AttendanceAPI.fromJson(data));
+      });
     });
   }
 
-  List<AttendanceAPI> data_list = [];
-  List<AttendanceAPI> data_list_name = [];
+  List<dynamic> data_list = [];
+  List<AttendanceAPI> data_list_people = [];
   PostAPIAttendance _postAPIAttendance = PostAPIAttendance();
 
   @override
@@ -107,42 +112,40 @@ class AttendanceState extends State<Attendance> {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      itemCount: data_list_name.length,
+                      itemCount: data_list_people.length,
                       itemBuilder: (context, index) {
                         String check;
                         Color color;
-                        if (data_list_name[index].status == 0) {
+                        if (data_list_people[index].status == 0) {
                           color = Colors.orangeAccent;
                           check = "Processing";
-                        } else if (data_list_name[index].status == 1) {
+                        } else if (data_list_people[index].status == 1) {
                           color = Color.fromARGB(255, 168, 206, 60);
                           check = "Present";
-                        } else if (data_list_name[index].status == 2) {
+                        } else if (data_list_people[index].status == 2) {
                           color = Color.fromARGB(255, 168, 206, 60);
                           check = "Reject";
-                        } else if (data_list_name[index].status == 3) {
+                        } else if (data_list_people[index].status == 3) {
                           color = Color.fromARGB(255, 168, 206, 60);
                           check = "Employee Submit";
-                        } else if (data_list_name[index].status == 4) {
+                        } else if (data_list_people[index].status == 4) {
                           color = Colors.black45;
                           check = "Draft";
-                        } else if (data_list_name[index].status == 5) {
+                        } else if (data_list_people[index].status == 5) {
                           color = Colors.black45;
                           check = "Closed";
-                        } else if (data_list_name[index].status == 6) {
+                        } else if (data_list_people[index].status == 6) {
                           color = Colors.red;
                           check = "Absent";
                         };
-
 //                          if(data_list[index].employee_name == _nameEmp){
                         return GestureDetector(
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 10.0, right: 10.0),
                             child: container_attendance(color, Colors.white70,
-                                data_list_name[index].store_name,
-                                data_list_name[index].employee_name,
-                                data_list_name[index].shift_min.substring(
+                                data_list_people[index].store_name,
+                                data_list_people[index].shift_min.substring(
                                     0, 10), check),
                           ),
                         );

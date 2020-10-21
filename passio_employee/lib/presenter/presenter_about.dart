@@ -184,7 +184,7 @@ Widget info(String full_name){
     child: Center(
       child: Row(
         children: [
-          circle_avata("", Colors.lightGreenAccent),
+          circle_avata("${full_name.substring(0, 1)}", Colors.lightGreenAccent),
           Expanded(
             child: Container(
               margin: EdgeInsets.all(10),
