@@ -14,6 +14,4 @@ class AttendanceAPI{
       store_name: json['store_name'],
     );
   }
-
-
 }
