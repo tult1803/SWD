@@ -177,7 +177,7 @@ Widget circle_avata(String short_name, Color color_status){
   );
 }
 
-Widget info(String time, String start_time, String end_time, String full_name, String short_name){
+Widget info(String full_name){
   return Container(
     margin: EdgeInsets.only(left: 5),
     height: 90,
@@ -189,18 +189,14 @@ Widget info(String time, String start_time, String end_time, String full_name, S
             child: Container(
               margin: EdgeInsets.all(10),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: tittleName("${full_name}"),
+                  Center(
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      child: tittleName("${full_name}"),
+                    ),
                   ),
-                  Container(
-                      alignment: Alignment.centerLeft,
-                      child: timeStart("${time}"),),
-                  Container(
-                      margin: EdgeInsets.only(top: 2),
-                      alignment: Alignment.centerLeft,
-                      child: timeShift("${start_time}", "${end_time}")),
                 ],
               ),
             ),

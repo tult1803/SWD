@@ -18,7 +18,7 @@ class Profile extends StatefulWidget{
 }
 
 class ProfileState extends State<Profile>{
-  String name, short_name;
+  String name;
   int _selectedPage = 4;
   final _pageOptions = [
     Home(),
@@ -36,7 +36,6 @@ class ProfileState extends State<Profile>{
     final prefs = await SharedPreferences.getInstance();
     setState((){
       name = prefs.getString('name_emp');
-      short_name = prefs.getString('short_name_emp');
     });
   }
 
@@ -52,11 +51,11 @@ class ProfileState extends State<Profile>{
         child: Column(
           children: [
             Container(
-              height: 100,
+              height: 90,
               child: Center(
                 child: Column(
                   children: [
-                    info("13:00", "12:00", "20:00", name, short_name),
+                    info(name),
                   ],
                 ),
               ),
