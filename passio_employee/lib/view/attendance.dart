@@ -119,29 +119,13 @@ class AttendanceState extends State<Attendance> {
                       itemBuilder: (context, index) {
                         String check;
                         Color color;
-                        if (data_list_people[index].status == 0) {
-                          color = Colors.orangeAccent;
-                          check = "Processing";
-                        } else if (data_list_people[index].status == 1) {
+                        if (data_list_people[index].present) {
                           color = Color.fromARGB(255, 168, 206, 60);
                           check = "Present";
-                        } else if (data_list_people[index].status == 2) {
-                          color = Color.fromARGB(255, 168, 206, 60);
-                          check = "Reject";
-                        } else if (data_list_people[index].status == 3) {
-                          color = Color.fromARGB(255, 168, 206, 60);
-                          check = "Employee Submit";
-                        } else if (data_list_people[index].status == 4) {
-                          color = Colors.black45;
-                          check = "Draft";
-                        } else if (data_list_people[index].status == 5) {
-                          color = Colors.black45;
-                          check = "Closed";
-                        } else if (data_list_people[index].status == 6) {
+                        } else {
                           color = Colors.red;
                           check = "Absent";
                         }
-                        ;
 //                          if(data_list[index].employee_name == _nameEmp){
                         return GestureDetector(
                           child: Padding(
