@@ -10,3 +10,4 @@ String url_Login = 'api/authenticate/login-for-mobile';
 String url_Profile = 'api/employee';
 String url_new= 'api/article/1';
 String url_checkAttendace = 'api/attendance/check-attendance';
+String url_get_by_date = 'api/work/get-work-by-date';
