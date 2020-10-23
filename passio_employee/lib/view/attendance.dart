@@ -236,14 +236,15 @@ class AttendanceState extends State<Attendance> {
         _showDialog('Điểm danh thành công !!!');
         print("Điểm danh thành công");
         GetAPIAttendance getAPI = GetAPIAttendance();
-        //setState(() async {
-        data_list_people = [];
+        data_list.clear();
         data_list = await getAPI.getAttendance(HomeState.token);
-        data_list.forEach((element) {
-          Map<dynamic, dynamic> data = element;
-          data_list_people.add(AttendanceAPI.fromJson(data));
+        setState(() {
+          data_list_people.clear();
+          data_list.forEach((element) {
+            Map<dynamic, dynamic> data = element;
+            data_list_people.add(AttendanceAPI.fromJson(data));
+          });
         });
-        //});
       } else {
         _showDialog('Điểm danh lỗi. Thử lại !!!');
       }
