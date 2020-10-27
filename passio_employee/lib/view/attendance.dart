@@ -43,7 +43,7 @@ class AttendanceState extends State<Attendance> {
     final prefs = await SharedPreferences.getInstance();
     _nameEmp = prefs.getString("name_emp");
     GetAPIAttendance getAPI = GetAPIAttendance();
-    setState(() async {
+    // setState(() async {
       do {
         data_list = await getAPI.getAttendance(HomeState.token);
         for (int i = 0; i < data_list.length; i++) {
@@ -55,7 +55,7 @@ class AttendanceState extends State<Attendance> {
           }
         }
       } while (data_list.isEmpty);
-    });
+    // });
   }
 
   List<AttendanceAPI> data_list = [];

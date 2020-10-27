@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:passioemployee/model/url/url_color.dart';
 import 'package:passioemployee/view/dettails_about/more/contact.dart';
 import 'package:passioemployee/view/dettails_about/more/request_break.dart';
@@ -78,6 +79,7 @@ Widget container_profile_logout(BuildContext context, String txt, Icon icon){
     onPressed: () async{
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
       sharedPreferences.clear();
+      signOutGoogle();
       print("Clear Save Login");
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => LoginScreen()), (Route<dynamic> route) => false);
 
@@ -238,4 +240,12 @@ Widget timeShift(String start, String end){
 //      fontWeight: FontWeight.w600,
       color: Colors.lightBlue,
   ),);
+}
+
+final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+Future<void> signOutGoogle() async {
+  await _googleSignIn.signOut();
+
+  print("User Signed Out");
 }

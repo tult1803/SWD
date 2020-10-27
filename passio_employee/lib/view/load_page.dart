@@ -33,15 +33,24 @@ class LoadState extends State{
   }
 
   Future _loadDate()async{
-        PostAPI getAPI = PostAPI();
-         sharedPreferences = await SharedPreferences
-            .getInstance();
-        // Đỗ dữ liệu lấy từ api
-        data = await getAPI.createLogin(
-            LoginScreenState.email, LoginScreenState.password);
-        int status = await PostAPI.status;
+    int status;
+    sharedPreferences = await SharedPreferences
+        .getInstance();
+    if(LoginScreenState.statusGoogle == true){
+         PostGoogleAPI _getAPI = PostGoogleAPI();
+         data = await _getAPI.createLogin(LoginScreenState.email);
+          status = await PostGoogleAPI.status;
+          print('Status: $status - Email: ${data.email}');
+       }
+    else {
+      PostAPI getAPI = PostAPI();
+      // Đỗ dữ liệu lấy từ api
+      data = await getAPI.createLogin(
+          LoginScreenState.email, LoginScreenState.password);
+      status = await PostAPI.status;
+    }
         if (status == 200) {
-          sharedPreferences.setString("token", data.access_token);
+          sharedPreferences.setString("token", '${data.access_token}');
           sharedPreferences.setString("email", data.email);
           sharedPreferences.setString("username", data.user_name);
           String store_name_emp;
@@ -92,7 +101,8 @@ class LoadState extends State{
           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
               builder: (BuildContext context) => LoginScreen()), (
               Route<dynamic> route) => false);
-        });}}
+        });}
+  }
 
 //  void _checkDate() async{
 //    print("PostAPI: ${PostAPI.status}");

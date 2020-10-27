@@ -34,10 +34,9 @@ class PeopleState extends State{
   String _nameEmp;
   void getAttendance() async{
     GetAPIAttendance getAPI = GetAPIAttendance();
-    setState(() async{
+    // setState(() async{
       do {
         data_list = await getAPI.getAttendance(HomeState.token);
-        String nameCheck;
         data_list_short.add(data_list[0]);
         for(int i = 0; i < data_list.length; i++){
             if(data_list_short[(data_list_short.length - 1)].employee_name != data_list[i].employee_name){
@@ -45,7 +44,7 @@ class PeopleState extends State{
           }
         }
       }while(data_list.isEmpty);
-    });
+    // });
   }
   List<AttendanceAPI> data_list = [];
   List<AttendanceAPI> data_list_short = [];

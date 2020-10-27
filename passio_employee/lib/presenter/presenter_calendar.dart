@@ -1,8 +1,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:passioemployee/view/details_calendar.dart';
 
-Widget cardCalendar(String store, String time ){
+Widget cardCalendar(BuildContext context,String store, String time , int id){
   return Padding(
     padding: EdgeInsets.only(top:0.0),
     child: Card(
@@ -25,7 +26,9 @@ Widget cardCalendar(String store, String time ){
                       children: [
                         FlatButton(
                           child:  Text('More'),
-                          onPressed: () {/* ... */},
+                          onPressed: () {
+                            // print('ID: $id');
+                            _sendDataToDetailCalendarScreen(context, id);                          },
                         )]),
                 ],
               ),
@@ -33,3 +36,10 @@ Widget cardCalendar(String store, String time ){
   );
 }
 
+void _sendDataToDetailCalendarScreen(BuildContext context, int id1) {
+  Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetailsCalendar(id: id1),
+      ));
+}

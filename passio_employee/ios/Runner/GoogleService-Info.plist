@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1092725416437-7tbves0anhu2g1mie9smad2chsusmk8r.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1092725416437-7tbves0anhu2g1mie9smad2chsusmk8r</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1092725416437-1gncch0are0ssqceoas5605poa4bd5bk.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyByRNjEoqh19HSvsX5AdeSaPS6p3oVwPC4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1092725416437</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.passio.passioemployee</string>
+	<key>PROJECT_ID</key>
+	<string>demologin-9f0e2</string>
+	<key>STORAGE_BUCKET</key>
+	<string>demologin-9f0e2.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1092725416437:ios:3efeb03b5b5736609d40bc</string>
+	<key>DATABASE_URL</key>
+	<string>https://demologin-9f0e2.firebaseio.com</string>
+
+</dict>
+</plist>

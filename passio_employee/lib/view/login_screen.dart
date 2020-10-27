@@ -2,13 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:passioemployee/model/getAPI_profile_emp.dart';
 import 'package:passioemployee/model/model_login.dart';
-import 'package:passioemployee/model/model_profile_emp.dart';
-import 'package:passioemployee/view/home.dart';
+import 'package:passioemployee/presenter/presenter_loginGoogle.dart';
 import 'package:passioemployee/view/load_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'forgotpassword_screen.dart';
 
 
@@ -22,6 +18,7 @@ class LoginScreenState extends State<LoginScreen> {
 
   Future<DataLogin> _futureLogin;
   static String email, password;
+  static bool statusGoogle = false;
   bool _isLoading = false;
   Widget _buildIDTF() {
     return Column(
@@ -114,6 +111,9 @@ class LoginScreenState extends State<LoginScreen> {
         elevation: 15.0,
         onPressed: () async{
           // Key value
+          setState(() {
+            statusGoogle = false;
+          });
 //          SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
           print('Email: ${email} -- Password: ${password}');
           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Load()), (Route<dynamic> route) => false);
@@ -139,6 +139,42 @@ class LoginScreenState extends State<LoginScreen> {
         color: Color.fromRGBO(166, 206, 57, 4),
         child: Text(
           'Đăng Nhập',
+          style: TextStyle(
+            color: Colors.white,
+            letterSpacing: 3.5,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoginGoogle() {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 0.0),
+      width: 200,
+
+      child: RaisedButton(
+        elevation: 15.0,
+        onPressed: () async{
+          final checkLogin = await  signInWithGoogle();
+          if(checkLogin != null){
+            setState(() {
+              statusGoogle = true;
+              email = checkLogin;
+            });
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Load()), (Route<dynamic> route) => false);
+          }
+        },
+
+        padding: EdgeInsets.all(15.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        color: Color.fromRGBO(166, 206, 57, 4),
+        child: Text(
+          'Google',
           style: TextStyle(
             color: Colors.white,
             letterSpacing: 3.5,
@@ -200,8 +236,8 @@ class LoginScreenState extends State<LoginScreen> {
                       _buildIDTF(),
                       _buildPasswordTF(),
                       _buildLoginBtn(),
+                      _buildLoginGoogle(),
                       _buildForgetPassword(),
-
 
                     ],
                   ),

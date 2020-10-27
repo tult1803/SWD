@@ -49,7 +49,6 @@ class HomeState extends State<Home>{
     data_list.forEach((element) {
       Map<dynamic, dynamic> data= element;
       data_list_news.add(DataNews.fromJson(data));
-      print('ID: ${data_list_news[i++].id}');
     });
     // print('Data List: ${data_list.length}');
     // for(int i =0; i< data_list.length; i++){
@@ -61,7 +60,7 @@ class HomeState extends State<Home>{
     final prefs = await SharedPreferences.getInstance();
     setState((){
       token = prefs.getString('token');
-
+      // print("Token News: $token");
     });
   }
   @override

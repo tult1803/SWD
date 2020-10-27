@@ -57,7 +57,7 @@ class CalendarState extends State<Calendar> {
     data_list.forEach((element) {
       Map<dynamic, dynamic> data= element;
       data_list_getBydate.add(GetByDate.fromJson(data));
-      print('ID: ${data_list_getBydate[i++].id}');
+      // print('ID: ${data_list_getBydate[i++].id}');
     });
   }
 
@@ -67,6 +67,41 @@ class CalendarState extends State<Calendar> {
       token = prefs.getString('token');
       empId = prefs.getString('id_emp');
     });
+  }
+
+  Widget checkDays(var size, List data_list_getBydate){
+    if(data_list_getBydate.length != 0){
+      return  ListView.builder(
+          itemCount: data_list_getBydate.length,
+          itemBuilder: (context, index) {
+            String sTime, eTime;
+            sTime = '${data_list_getBydate[index].shift_min}';
+            sTime = sTime.substring(11, 16).trim();
+            eTime = '${data_list_getBydate[index].shift_max}';
+            eTime = eTime.substring(11, 16).trim();
+            return GestureDetector(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 10.0, right: 10.0),
+                child: cardCalendar(
+                  context,
+                    data_list_getBydate[index].store_name,
+                    '$sTime - $eTime',
+                    data_list_getBydate[index].id,
+                ),
+              ),
+            );
+          },
+      );
+    }else{
+      return  Container(
+          width: size.width,
+          child: Center(child: Padding(
+            padding: const EdgeInsets.only(bottom: 100.0),
+            child: Text('Không có ca làm', style: TextStyle(fontSize: 20, color: Colors.black54),),
+          )),
+      );
+    }
   }
 
   @override
@@ -89,7 +124,7 @@ class CalendarState extends State<Calendar> {
               print(snapshot.error);
             }
             if(snapshot.hasData){
-              if(data_list_getBydate.length != 0) {
+              // if(data_list_getBydate.length != 0) {
                 return new Column(
                   children: [
                     TableCalendar(
@@ -106,67 +141,13 @@ class CalendarState extends State<Calendar> {
                           date = '$day';
                           date = date.substring(0, 10).trim();
                           data_list_getBydate.clear();
-                          _getNews();
+                            _getNews();
+
                         });
                       },
                     ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: data_list_getBydate.length,
-                        itemBuilder: (context, index) {
-                          String sTime, eTime;
-                          sTime = '${data_list_getBydate[index].shift_min}';
-                          sTime = sTime.substring(11, 16).trim();
-                          eTime = '${data_list_getBydate[index].shift_max}';
-                          eTime = eTime.substring(11, 16).trim();
-                          return GestureDetector(
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 10.0, right: 10.0),
-                              child: cardCalendar(
-                                  data_list_getBydate[index].store_name,
-                                  '$sTime - $eTime'),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                );
-              }else{
-                return new Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    TableCalendar(
-                      initialCalendarFormat: CalendarFormat.week,
-                      calendarController: _controller,
-                      calendarStyle: CalendarStyle(
-                        todayColor: Colors.orange,
-                        selectedColor: Theme
-                            .of(context)
-                            .primaryColor,
-                      ),
-                      onDaySelected: (day, events) {
-                        setState(() {
-                          date = '$day';
-                          date = date.substring(0, 10).trim();
-                          data_list_getBydate.clear();
-                          _getNews();
-                        });
-                      },
-                    ),
-                    Expanded(
-                        child: Container(
-                          width: size.width,
-                          child: Center(child: Padding(
-                            padding: const EdgeInsets.only(bottom: 100.0),
-                            child: Text('Không có ca làm', style: TextStyle(fontSize: 20, color: Colors.black54),),
-                          )),
-                        ),
-                    ),
-                  ],
-                );
-              }
+                    Expanded(child: checkDays(size, data_list_getBydate)),
+                 ]);
             }else {
               return Center(child: CircularProgressIndicator());
             }

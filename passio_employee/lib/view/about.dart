@@ -54,22 +54,22 @@ class ProfileState extends State<Profile>{
         child: Column(
           children: [
             Container(
-              height: 150,
+              // height: 150,
               child: Column(
                 children: [
                   info("13:00", "12:00", "20:00", stores, name, short_name),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
-                          btnTime(),
-                          btnShift("Bắt đầu giờ nghỉ", Colors.orangeAccent),
-                          Expanded(child: btnShift("Kết thúc ca", Colors.redAccent)),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: Container(
+                  //     alignment: Alignment.centerLeft,
+                  //     child: Row(
+                  //       children: [
+                  //         btnTime(),
+                  //         btnShift("Bắt đầu giờ nghỉ", Colors.orangeAccent),
+                  //         Expanded(child: btnShift("Kết thúc ca", Colors.redAccent)),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
