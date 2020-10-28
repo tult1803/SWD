@@ -25,7 +25,7 @@ class GetAPIProfile{
       status = 200;
       DataProfile data = DataProfile.fromJson(jsonDecode(response.body));
 //      print(data.toString());
-      return data = DataProfile.fromJson(jsonDecode(response.body));
+      return data;
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.

@@ -121,8 +121,10 @@ class CalendarState extends State<Calendar> {
                               padding: const EdgeInsets.only(
                                   left: 10.0, right: 10.0),
                               child: cardCalendar(
+                                  context,
                                   data_list_getBydate[index].store_name,
-                                  '$sTime - $eTime'),
+                                  '$sTime - $eTime',
+                                  data_list_getBydate[index]),
                             ),
                           );
                         },

@@ -1,8 +1,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:passioemployee/model/model_attendance_getBydate.dart';
+import 'package:passioemployee/view/details_calendar.dart';
 
-Widget cardCalendar(String store, String time ){
+Widget cardCalendar(BuildContext context, String store, String time, GetByDate dataGetByDate ){
   return Padding(
     padding: EdgeInsets.only(top:0.0),
     child: Card(
@@ -25,10 +27,20 @@ Widget cardCalendar(String store, String time ){
                       children: [
                         FlatButton(
                           child:  Text('More'),
-                          onPressed: () {/* ... */},
+                          onPressed: () {
+                            _sendDataToDetailCalendarScreen(context, dataGetByDate);
+                          },
                         )]),
                 ],
               ),
             ])),
   );
+}
+
+void _sendDataToDetailCalendarScreen(BuildContext context, GetByDate dataGetByDate) {
+  Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetailsCalendar(dataGetByDate: dataGetByDate),
+      ));
 }
