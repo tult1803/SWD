@@ -176,7 +176,7 @@ class _DetailsCalendarState extends State<DetailsCalendar> {
           onPressed:  () async {
             var prefs = await SharedPreferences.getInstance();
             PutAPIChangeShiftWork _apiChangeShiftWork = PutAPIChangeShiftWork();
-            int resultChangeShiftWork = await _apiChangeShiftWork.changeShiftWork(work_id, prefs.getString('id_emp'), prefs.getString('token'));
+            int resultChangeShiftWork = await _apiChangeShiftWork.changeShiftWork(work_id,  prefs.getString('token'));
             if (resultChangeShiftWork == 200) {
               await _showDialog('Đổi ca thành công !');
               Navigator.push(
