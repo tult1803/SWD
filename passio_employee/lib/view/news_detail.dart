@@ -69,68 +69,47 @@ class DetailNewsState extends State<NewsDetails> {
             // height: 200,
             width: size.width,
             child: Card(
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.black12, width: 1),
-                borderRadius: BorderRadius.circular(10),
-              ),
+              clipBehavior: Clip.antiAlias,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-                  card('Title', '$title'),
-                  card('Ngày tạo', '$createDate'),
-                  Row(children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        card('Content', '$content'),
-                        card('Tác giả', '$authorId'),
-                      ],
+                  ListTile(
+                    // leading: Icon(Icons.arrow_drop_down_circle),
+                    title: Text('$title', style: TextStyle(fontWeight: FontWeight.bold),),
+                    subtitle: Text(
+                      '$createDate',
+                      style: TextStyle(color: Colors.black.withOpacity(0.6)),
                     ),
-                    Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: Colors.lightGreen,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: FlatButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                    BorderRadius.circular(20),
-                                  ),
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      // builder: (context) => confirmDialog(news_id),
-                                      barrierDismissible: false,
-                                    );
-                                  },
-                                  child: Text(
-                                    'Đổi ca',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 20),
-                                  )),
-                            ),
-                          ],
-                        )),
-                  ]),
-                  SizedBox(
-                    height: 20,
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      '$content',
+                      style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                    ),
+                  ),
+                  ButtonBar(
+                    alignment: MainAxisAlignment.start,
+                    children: [
+                      FlatButton(
+                        onPressed: () {
+                          // Perform some action
+                        },
+                        child: const Text('ACTION 1'),
+                      ),
+                      FlatButton(
+                        onPressed: () {
+                          // Perform some action
+                        },
+                        child: const Text('ACTION 2'),
+                      ),
+                    ],
+                  ),
+                  // Image.asset('assets/card-sample-image-2.jpg'),
                 ],
               ),
             ),
-          ),
+            ),
+          // ),
         ],
       ),
     );
