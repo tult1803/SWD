@@ -76,7 +76,7 @@ class DetailNewsState extends State<NewsDetails> {
                     // leading: Icon(Icons.arrow_drop_down_circle),
                     title: Text('$title', style: TextStyle(fontWeight: FontWeight.bold),),
                     subtitle: Text(
-                      '$createDate',
+                      'Ngày đăng: $createDate',
                       style: TextStyle(color: Colors.black.withOpacity(0.6)),
                     ),
                   ),
