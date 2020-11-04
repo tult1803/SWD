@@ -55,9 +55,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:passioemployee/model/model_profile_emp.dart';
+import 'package:passioemployee/view/people_detail.dart';
 import 'package:random_color/random_color.dart';
 
-Widget container_Calendar(int count,Color color_status,String name_emp, String objective, bool check){
+Widget container_Calendar(BuildContext context, int count,Color color_status,String name_emp, String objective, bool check, DataProfile dataPeople){
   RandomColor _randomColor = RandomColor(); // Random màu
   return Container(
     margin: EdgeInsets.only(left: 5, top: 10),
@@ -108,11 +110,19 @@ Widget container_Calendar(int count,Color color_status,String name_emp, String o
                 Padding(
                   padding: const EdgeInsets.only(left: 20.0, top: 10),
                   child: Container(
-                    child:  Text("${name_emp}", style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                    ),),
-                    alignment: Alignment.centerLeft,
+                    child:  ButtonBar(
+                        children: [
+                          FlatButton(
+                            child:  Text("${name_emp}", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+                            onPressed: () {
+                              _sendDataToDetailPeopleScreen(context, dataPeople);
+                            },
+                          )]),
+                    // Text("${name_emp}", style: TextStyle(
+                    //   fontWeight: FontWeight.w600,
+                    //   fontSize: 18,
+                    // ),),
+                    // alignment: Alignment.centerLeft,
                   ),
                 ),
                 // Padding(
@@ -129,7 +139,15 @@ Widget container_Calendar(int count,Color color_status,String name_emp, String o
 
         Container(
           width: 40,
-          child: Image(image: AssetImage('images/arrow_right.png'),),
+          // child: Image(image: AssetImage('images/arrow_right.png'),),
+          child: ButtonBar(
+              children: [
+                FlatButton(
+                  child:  Image(image: AssetImage('images/arrow_right.png'),),
+                  onPressed: () {
+                    _sendDataToDetailPeopleScreen(context, dataPeople);
+                  },
+                )]),
         ),
       ],
     ),
@@ -168,3 +186,11 @@ Widget container_Calendar(int count,Color color_status,String name_emp, String o
     color: Colors.white
   ),);
   }
+
+void _sendDataToDetailPeopleScreen(BuildContext context, DataProfile dataPeople) {
+  Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PeopleDetails(dataPeople: dataPeople),
+      ));
+}

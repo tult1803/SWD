@@ -80,11 +80,14 @@ class PeopleState extends State {
                           padding:
                               const EdgeInsets.only(left: 10.0, right: 10.0),
                           child: container_Calendar(
+                              context,
                               index,
                               Colors.lightGreenAccent,
                               data_list_people[index].name,
                               'Vị trí',
-                              true),
+                              true,
+                              data_list_people[index]
+                          ),
                         ),
                       );
                     }
