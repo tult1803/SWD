@@ -111,6 +111,7 @@ Widget container_Calendar(BuildContext context, int count,Color color_status,Str
                   padding: const EdgeInsets.only(left: 20.0, top: 10),
                   child: Container(
                     child:  ButtonBar(
+                      alignment: MainAxisAlignment.start,
                         children: [
                           FlatButton(
                             child:  Text("${name_emp}", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
