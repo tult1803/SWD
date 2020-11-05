@@ -2,34 +2,37 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:passioemployee/model/getAPI_calendar_getByid.dart';
-import 'package:passioemployee/model/putAPI_public_work.dart';
+import 'package:passioemployee/model/putAPI_swapShift.dart';
 import 'package:passioemployee/model/url/url_color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class DetailsCalendar extends StatefulWidget {
+import '../../home.dart';
+
+class DetailsSwap extends StatefulWidget {
   final int id;
 
   // DetailsCalendar(this.id);
-  DetailsCalendar({Key key, @required this.id}) : super(key: key);
+  DetailsSwap({Key key, @required this.id}) : super(key: key);
 
   @override
-  _DetailsCalendarState createState() => _DetailsCalendarState(id);
+  _DetailsSwapState createState() => _DetailsSwapState(id);
 }
 
-class _DetailsCalendarState extends State<DetailsCalendar> {
+class _DetailsSwapState extends State<DetailsSwap> {
   final id;
   Map<dynamic, dynamic> data;
   GetByIDAPI _getAPI = GetByIDAPI();
-  String token, sTime, eTime, store, day;
+  String token, sTime, eTime, store, day, idEmp;
   int employee_id;
 
-  _DetailsCalendarState(this.id);
+  _DetailsSwapState(this.id);
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _getToken();
+    _getIDEmp();
   }
 
   void _getToken() async {
@@ -39,7 +42,6 @@ class _DetailsCalendarState extends State<DetailsCalendar> {
     });
     data = await _getAPI.getByID(token, id);
     setState(() {
-      employee_id = data.values.elementAt(1);
       store = data.values.elementAt(6);
       sTime = data.values.elementAt(3);
       sTime = '${sTime.substring(11, 16)}';
@@ -48,6 +50,16 @@ class _DetailsCalendarState extends State<DetailsCalendar> {
       eTime = '${eTime.substring(11, 16)}';
     });
     // print('${data.keys}');
+  }
+
+  void _getIDEmp() async{
+    final prefs = await SharedPreferences.getInstance();
+     idEmp = prefs.getString('id_emp');
+
+     setState(() {
+       employee_id = int.parse(idEmp);
+       print("Id Emp: $employee_id");
+     });
   }
 
   @override
@@ -65,7 +77,7 @@ class _DetailsCalendarState extends State<DetailsCalendar> {
         ),
         backgroundColor: color_main,
         title: Text(
-          "Chi tiết lịch",
+          "Chi tiết đổi ca",
           style: TextStyle(color: Colors.black),
         ),
       ),
@@ -120,7 +132,7 @@ class _DetailsCalendarState extends State<DetailsCalendar> {
                                     _showDialog();
                                   },
                                   child: Text(
-                                    'Đổi ca',
+                                    'Nhận ca',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w500,
@@ -190,11 +202,12 @@ class _DetailsCalendarState extends State<DetailsCalendar> {
             new FlatButton(
               child: new Text("Yes" , style: TextStyle(color: Colors.lightGreen),),
               onPressed: () async{
-                PutPublicWorkAPI _putPublicWork = PutPublicWorkAPI();
-                int status = await _putPublicWork.putPublicWork(token, id);
+                PutSwapAPI _putSwap = PutSwapAPI();
+                int status = await _putSwap.putSwap(token, id, employee_id);
                 if(status == 200){
+                  print('ID Swap: $id - Id Emp: $employee_id');
                   await _showDialogError('Đổi ca thành công !');
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Home()), (route) => false);
                 }else {
                   await _showDialogError('Đổi ca lỗi !');
                   Navigator.of(context).pop();

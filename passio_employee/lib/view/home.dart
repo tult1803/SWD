@@ -35,8 +35,8 @@ class HomeState extends State<Home>{
 
   @override
   void initState() {
-    _getToken();
-    print('Token get !!!');
+    // _getToken();
+    // print('Token get !!!');
     _getNews();
   }
    GetAPINews getNew = GetAPINews();
@@ -44,6 +44,12 @@ class HomeState extends State<Home>{
    List<DataNews> data_list_news = [];
   void _getNews() async{
     int i = 0;
+    final prefs = await SharedPreferences.getInstance();
+    setState((){
+      token = prefs.getString('token');
+      print('${prefs.getString('id_emp')}');
+      // print("Token News: $token");
+    });
     data_list = await getNew.getNews(token);
     print('${data_list.length}');
     data_list.forEach((element) {
@@ -56,13 +62,6 @@ class HomeState extends State<Home>{
     // }
   }
 
-  void _getToken()async{
-    final prefs = await SharedPreferences.getInstance();
-    setState((){
-      token = prefs.getString('token');
-      // print("Token News: $token");
-    });
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

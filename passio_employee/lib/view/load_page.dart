@@ -60,6 +60,7 @@ class LoadState extends State{
             store_name_emp = element.name;
           });
           sharedPreferences.setString("id_emp", '${dataProfile.id}');
+          print('ID Emp: ${sharedPreferences.getString("id_emp")}');
           sharedPreferences.setString("name_emp", dataProfile.name);
           sharedPreferences.setString("short_name_emp", dataProfile.short_name);
           sharedPreferences.setString("address_emp", dataProfile.address);

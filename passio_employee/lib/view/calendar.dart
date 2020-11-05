@@ -42,7 +42,6 @@ class CalendarState extends State<Calendar> {
     super.initState();
     date = '${DateTime.now()}';
     date = date.substring(0, 10).trim();
-    _getToken();
     _getNews();
     _controller = CalendarController();
   }
@@ -52,6 +51,11 @@ class CalendarState extends State<Calendar> {
 
   void _getNews() async{
     int i = 0;
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      token = prefs.getString('token');
+      empId = prefs.getString('id_emp');
+    });
     data_list = await _getByDateAPI.getByDate(token, date, empId);
     print('${data_list.length}');
     data_list.forEach((element) {
@@ -61,13 +65,6 @@ class CalendarState extends State<Calendar> {
     });
   }
 
-  void _getToken()async{
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      token = prefs.getString('token');
-      empId = prefs.getString('id_emp');
-    });
-  }
 
   Widget checkDays(var size, List data_list_getBydate){
     if(data_list_getBydate.length != 0){

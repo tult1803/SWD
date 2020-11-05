@@ -1,28 +1,21 @@
-import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:passioemployee/model/url/url_api.dart';
 
+class PutPublicWorkAPI {
 
-
-class GetByIDAPI {
-  static int status;
-
-  getByID(String token, int id ) async {
-    final response = await http.get(
-      '${url_main}/${url_get_by_id}?id=${id}',
+  putPublicWork(String token, int attendance_id) async {
+    final response = await http.put(
+      '${url_main}/${url_public_work}/$attendance_id',
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'Bearer $token',
       },
     );
-    print("Status GetByID: ${response.statusCode}");
+    print("Status PublicWork: ${response.statusCode}");
     if (response.statusCode == 200) {
-      Map<dynamic, dynamic> data_map = json.decode(response.body);
-      // List<GetByID> data_list = [];
-      // data_list.add(GetByID.fromJson(data_map));
-
-      return data_map;
+      return response.statusCode;
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.

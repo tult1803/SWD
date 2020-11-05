@@ -20,6 +20,7 @@ class _ColorLoader2State extends State<ColorLoader2> with TickerProviderStateMix
   Animation<double> animation3;
   AnimationController controller1;
   AnimationController controller2;
+
   AnimationController controller3;
 
   @override
