@@ -64,16 +64,11 @@ class ProfileState extends State<Profile>{
                 child: ListView(
                   children: [
                     lable_profile("Ca"),
-                    container_profile(context, 0, "Ca sắp tới", shift_soon),
                     container_profile(context, 1, "Ca khả dụng", shift_availble),
                     container_profile(context, 2, "Bảng chấm công", shift_check),
                     lable_profile("Thời gian rảnh"),
                     container_profile(context, 3, "Nghỉ", time_relax),
                     container_profile(context, 4, "Trường hợp không rảnh", time_notime),
-                    lable_profile("Tasks"),
-                    container_profile(context, 5, "My Tasks", task_mytask),
-                    container_profile(context, 6, "Assigned Tasks", task_asigned),
-                    container_profile(context, 7, "Shift Tasks", task_shift),
                     lable_profile("Cần phê duyệt"),
                     container_profile(context, 8, "Yêu cầu nghỉ", wait_check),
                     lable_profile("Khác"),
