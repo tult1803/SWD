@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:passioemployee/model/getAPI_profile_emp.dart';
+import 'package:passioemployee/model/model_news.dart';
 import 'package:passioemployee/model/model_profile_emp.dart';
 import 'package:passioemployee/view/home.dart';
+import 'package:passioemployee/view/news_detail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Widget cardNews(String tittle, String text, String dateTime,String code){
+Widget cardNews(BuildContext context, String tittle, String text, String dateTime,String code, DataNews dataNews){
   return Padding(
     padding: EdgeInsets.only(top:0.0),
     child: Card(
@@ -34,7 +36,7 @@ Widget cardNews(String tittle, String text, String dateTime,String code){
                             FlatButton(
                               child:  Text('More'),
                                 onPressed: () {
-
+                                  _sendDataToDetailNewsScreen(context, dataNews);
                               },
                             )]),
                     ),
@@ -42,4 +44,11 @@ Widget cardNews(String tittle, String text, String dateTime,String code){
                 ),
               )])),
   );
+}
+void _sendDataToDetailNewsScreen(BuildContext context, DataNews dataNews) {
+  Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => NewsDetails(dataNews: dataNews),
+      ));
 }
