@@ -84,7 +84,16 @@ class PeopleState extends State{
             },
             child: Padding(
               padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-              child: container_Calendar(index,Colors.lightGreenAccent, data_list_short[index].employee_name, data_list_short[index].shift_min.substring(11,16),'Vị trí', true, "VT"),
+              child: container_Calendar(
+                  context,
+                  index,
+                  Colors.lightGreenAccent,
+                  data_list_short[index].employee_name,
+                  data_list_short[index].shift_min.substring(11,16),
+                  'Vị trí',
+                  true,
+                  "VT",
+                  data_list_short[index]),
             ),
           );
         }
