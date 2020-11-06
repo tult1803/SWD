@@ -133,7 +133,7 @@ class CalendarState extends State<Calendar> {
                             .of(context)
                             .primaryColor,
                       ),
-                      onDaySelected: (day, events) {
+                      onDaySelected: (day, events, holiday) {
                         setState(() {
                           date = '$day';
                           date = date.substring(0, 10).trim();

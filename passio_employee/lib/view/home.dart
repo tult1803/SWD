@@ -88,7 +88,7 @@ class HomeState extends State<Home>{
                         return GestureDetector(
                           child: Padding(
                             padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                            child: cardNews(data_list_news[index].name, data_list_news[index].content_html, '${dateTime.substring(0, 10).trim()}', '${data_list_news[index].id}'),
+                            child: cardNews(context, data_list_news[index].name, data_list_news[index].content_html, '${dateTime.substring(0, 10).trim()}', '${data_list_news[index].id}', data_list_news[index]),
                           ),
                         );
 //                          }
