@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:passioemployee/view/dettails_about/shift/details_swap.dart';
 
-Widget cardToSwapShift(BuildContext context,String store, String time , int id){
+Widget cardToSwapShift(BuildContext context,String store, String day,String time , int id){
   return Padding(
     padding: EdgeInsets.only(top:0.0),
     child: Card(
@@ -14,7 +14,7 @@ Widget cardToSwapShift(BuildContext context,String store, String time , int id){
                   leading: Container(
                       width: 40,
                       child: Icon(Icons.work)),
-                  title:  Text('$store', style: TextStyle(fontSize: 20),)),
+                  title:  Text('$store ( $day )', style: TextStyle(fontSize: 20),)),
 //                 trailing: Text('$time', style: TextStyle(fontSize: 18),overflow: TextOverflow.clip,)),
               Row(
                 children: [

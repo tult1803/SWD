@@ -105,8 +105,10 @@ class ShiftAvailableState extends State {
       return  ListView.builder(
         itemCount: data_list_getBydate.length,
         itemBuilder: (context, index) {
-          String sTime, eTime;
+          String sTime, eTime, day;
           sTime = '${data_list_getBydate[index].shift_min}';
+          day = sTime;
+          day = '${day.substring(8,10)}/${day.substring(5,7)}/${day.substring(0,4)}';
           sTime = sTime.substring(11, 16).trim();
           eTime = '${data_list_getBydate[index].shift_max}';
           eTime = eTime.substring(11, 16).trim();
@@ -117,6 +119,7 @@ class ShiftAvailableState extends State {
               child: cardToSwapShift(
                 context,
                 data_list_getBydate[index].store_name,
+                '$day',
                 '$sTime - $eTime',
                 data_list_getBydate[index].id,
               ),
