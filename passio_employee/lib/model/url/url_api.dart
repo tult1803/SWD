@@ -17,3 +17,4 @@ String url_get_by_date = 'api/work/get-work-by-date';
 String url_changeShiftWork = 'api/work/public-work';
 String url_get_public = 'api/work/get-public-work';
 String url_swap_shift = 'api/work/shift-work';
+String url_totalTime = 'api/work/get-total-work';
