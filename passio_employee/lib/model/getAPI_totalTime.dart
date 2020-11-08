@@ -14,6 +14,7 @@ class GetTotalTimeAPI {
       },
 
     );
+    print("url: ${url_main}/${url_totalTime}/$empId?from=$Sdate&to=$Edate");
     print("Status TotalTime: ${response.statusCode}");
     if (response.statusCode == 200) {
       Map<String, dynamic> data_map = json.decode(response.body);

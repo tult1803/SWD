@@ -18,8 +18,7 @@ class ShiftCheckState extends State {
   List<dynamic> picked;
   Map<String, dynamic> _data;
   GetTotalTimeAPI _getTotalTimeAPI = GetTotalTimeAPI();
-  String token, fromDate = DateTime(DateTime.now().year, DateTime.now().month).toString().substring(0, 10).trim(),
-      toDate = DateTime.now().toString().substring(0, 10).trim(), empId, totalTime ='0';
+  String token, fromDate , toDate, empId, totalTime ='0';
 
   @override
   void initState() {
@@ -103,6 +102,8 @@ class ShiftCheckState extends State {
         fromDate = fromDate.substring(0, 10).trim();
         toDate = '${picked.last}';
         toDate = toDate.substring(0, 10).trim();
+        print("from: ${fromDate}");
+        print("to: ${toDate}");
       });
     }
   }
