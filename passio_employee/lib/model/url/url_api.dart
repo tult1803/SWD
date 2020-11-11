@@ -10,6 +10,7 @@ String url_main = 'http://hrapp-env.eba-qw5pkqu2.ap-southeast-1.elasticbeanstalk
 String url_Attendance = 'api/work/get-work-by-employeeId';
 String url_People = 'api/employee/get-by-store';
 String url_Login = 'api/authenticate/login-for-mobile';
+String url_LoginGoogle = 'api/authenticate/login-by-gmail';
 String url_Profile = 'api/employee';
 String url_new= 'api/article/1';
 String url_checkAttendace = 'api/attendance/check-attendance';

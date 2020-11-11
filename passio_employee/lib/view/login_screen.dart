@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:passioemployee/model/getAPI_profile_emp.dart';
 import 'package:passioemployee/model/model_login.dart';
 import 'package:passioemployee/model/model_profile_emp.dart';
+import 'package:passioemployee/presenter/presenter_loginGoogle.dart';
 import 'package:passioemployee/view/home.dart';
 import 'package:passioemployee/view/load_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,6 +23,7 @@ class LoginScreenState extends State<LoginScreen> {
 
   Future<DataLogin> _futureLogin;
   static String email, password;
+  static bool statusGoogle = false;
   bool _isLoading = false;
   Widget _buildIDTF() {
     return Column(
@@ -113,25 +115,12 @@ class LoginScreenState extends State<LoginScreen> {
       child: RaisedButton(
         elevation: 15.0,
         onPressed: () async{
-          // Key value
-//          SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+          setState(() {
+            statusGoogle = false;
+          });
           print('Email: ${email} -- Password: ${password}');
           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Load()), (Route<dynamic> route) => false);
-
-//          PostAPI getAPI = PostAPI();
-//          DataLogin data;
-//          // Đỗ dữ liệu lấy từ api
-//          data = await getAPI.createLogin(_email, _password);
-//          if(PostAPI.status == 200){
-//            sharedPreferences.setString("token", data.access_token);
-//            sharedPreferences.setString("email", data.email);
-//            sharedPreferences.setString("username", data.user_name);
-//            DemoState.username = data.user_name;
-//            DemoState.email = data.email;
-//            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Home()), (Route<dynamic> route) => false);
-//          }
         },
-
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
@@ -139,6 +128,40 @@ class LoginScreenState extends State<LoginScreen> {
         color: Color.fromRGBO(166, 206, 57, 4),
         child: Text(
           'Đăng Nhập',
+          style: TextStyle(
+            color: Colors.white,
+            letterSpacing: 3.5,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoginGoogleBtn() {
+    return Container(
+      padding: EdgeInsets.only(bottom: 30),
+      width: double.infinity,
+      child: RaisedButton(
+        elevation: 15.0,
+        onPressed: () async{
+          final checkLogin = await  signInWithGoogle();
+          if(checkLogin != null){
+            setState(() {
+              statusGoogle = true;
+              email = checkLogin;
+            });
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => Load()), (Route<dynamic> route) => false);
+          }
+        },
+        padding: EdgeInsets.all(15.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        color: Color.fromRGBO(166, 206, 57, 4),
+        child: Text(
+          'Google',
           style: TextStyle(
             color: Colors.white,
             letterSpacing: 3.5,
@@ -200,9 +223,8 @@ class LoginScreenState extends State<LoginScreen> {
                       _buildIDTF(),
                       _buildPasswordTF(),
                       _buildLoginBtn(),
+                      _buildLoginGoogleBtn(),
                       _buildForgetPassword(),
-
-
                     ],
                   ),
                 ),

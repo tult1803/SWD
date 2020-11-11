@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "543795805536",
+    "firebase_url": "https://hr-app-d0ca5.firebaseio.com",
+    "project_id": "hr-app-d0ca5",
+    "storage_bucket": "hr-app-d0ca5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543795805536:android:89f7a495583d3f2bd53205",
+        "android_client_info": {
+          "package_name": "com.example.passioemployee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543795805536-d31ll9fv9njk98o6ki7ndt26umft3ucv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.passioemployee",
+            "certificate_hash": "0d721ace329e7c99c9afc1aac62d83d440dc844c"
+          }
+        },
+        {
+          "client_id": "543795805536-i34ugh91d9qgnt51ch1bdvvngqmhip8i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkxB-VjlU2Mxdu2fKPzZaZsty5gvFVghU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543795805536-i34ugh91d9qgnt51ch1bdvvngqmhip8i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
