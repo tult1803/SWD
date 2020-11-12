@@ -38,7 +38,7 @@ class LoadState extends State{
         .getInstance();
     if(LoginScreenState.statusGoogle == true){
       PostGoogleAPI _getAPI = PostGoogleAPI();
-      data = await _getAPI.createLogin('datvtp', LoginScreenState.email);
+      data = await _getAPI.createLogin(sharedPreferences.getString("idToken"), LoginScreenState.email);
       status = await PostGoogleAPI.status;
       //print('Status: $status - Email: ${data.email}');
     }
