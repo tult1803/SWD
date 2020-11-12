@@ -3,9 +3,9 @@
 //String url_main = 'http://apihr.reso.vn';
 
 //String url_main = 'https://tuanlm-hr.herokuapp.com';
-//String url_main = 'http://34.230.45.99:8084';
+String url_main = 'http://34.230.45.99:8084';
 
-String url_main = 'http://hrapp-env.eba-qw5pkqu2.ap-southeast-1.elasticbeanstalk.com';
+//String url_main = 'http://hrapp-env.eba-qw5pkqu2.ap-southeast-1.elasticbeanstalk.com';
 
 String url_Attendance = 'api/work/get-work-by-employeeId';
 String url_People = 'api/employee/get-by-store';
