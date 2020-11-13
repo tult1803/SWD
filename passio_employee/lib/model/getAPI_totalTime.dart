@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:passioemployee/model/url/url_api.dart';
 
+import 'model_attendance.dart';
+
 class GetTotalTimeAPI {
 
   getTotalTime(String token, String empId, String Sdate, String Edate,) async {
@@ -19,6 +21,7 @@ class GetTotalTimeAPI {
     if (response.statusCode == 200) {
       Map<String, dynamic> data_map = json.decode(response.body);
       print("Data values: ${data_map.values}");
+      print("Data values: ${data_map.values.last.toString()}");
       print("Data values first: ${data_map.values.first}");
       return data_map;
     } else {

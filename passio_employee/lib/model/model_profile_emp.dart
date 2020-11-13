@@ -2,12 +2,12 @@ import 'package:passioemployee/model/store_model.dart';
 
 class DataProfile {
   final int id, main_store_id;
-  final String address, email, phone_number, bank_number;
+  final String address, email, phone_number, bank_number, store_name;
   final String name;
   final double salary;
   final bool gender, active;
 
-  DataProfile({this.id, this.name, this.gender, this.address, this.phone_number, this.main_store_id, this.bank_number, this.email, this.salary,  this.active});
+  DataProfile({this.id, this.name, this.gender, this.address, this.phone_number, this.main_store_id, this.store_name, this.bank_number, this.email, this.salary,  this.active});
 
   factory DataProfile.fromJson(Map<dynamic, dynamic> json) {
     return DataProfile(
@@ -17,6 +17,7 @@ class DataProfile {
       address:  json['address'],
       phone_number:  json['phone'],
       main_store_id: json['storeId'],
+      store_name: json['storeNm'],
       bank_number: json['bankNumber'],
       email: json['email'],
       salary:  json['salary'],

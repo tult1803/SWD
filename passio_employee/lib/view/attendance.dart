@@ -136,6 +136,7 @@ class AttendanceState extends State<Attendance> {
                                 Colors.white70,
                                 data_list_people[index].store_name,
                                 data_list_people[index].shift_min,
+                                data_list_people[index].shift_max,
                                 check),
                           ),
                         );

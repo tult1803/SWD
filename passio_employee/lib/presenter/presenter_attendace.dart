@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 
 
 
-Widget container_attendance(Color color_status,Color color, String store_name, String date_time,String status){
+Widget container_attendance(Color color_status,Color color, String store_name, String date_time, String end_time, String status){
   return Container(
     margin: EdgeInsets.only(bottom: 3),
 //    height: 100,
@@ -14,9 +14,9 @@ Widget container_attendance(Color color_status,Color color, String store_name, S
     ),
     child: Row(
       children: [
+        SizedBox(width: 10,),
         Container(
-
-          width: 220,
+          width: 250,
 //          color: Colors.black,
           child: Column(
             children: [
@@ -24,7 +24,7 @@ Widget container_attendance(Color color_status,Color color, String store_name, S
                 padding: const EdgeInsets.only(left: 20.0, top: 10),
                 child: Container(
                   child:  Text("${store_name}", overflow: TextOverflow.visible,style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 13,
                   ),),
                   alignment: Alignment.centerLeft,
                 ),
@@ -32,10 +32,22 @@ Widget container_attendance(Color color_status,Color color, String store_name, S
               Padding(
                 padding: const EdgeInsets.only(left: 20.0, top: 5, bottom: 5),
                 child: Container(
-                  child:  Text("${date_time}", style: TextStyle(
+                  child:  Text("${date_time.substring(0, 10).trim()}", style: TextStyle(
                     fontSize: 18,
+                    fontWeight: FontWeight.w300,
                   ),),
                   alignment: Alignment.centerLeft,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0, bottom: 10, top: 5),
+                child: Container(
+                  child:  Text("Thời gian: ${date_time.substring(11, 16).trim()} - ${end_time.substring(11, 16).trim()}", style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.lightBlueAccent,
+                  ),),
+                  alignment: Alignment.center,
                 ),
               ),
             ],
