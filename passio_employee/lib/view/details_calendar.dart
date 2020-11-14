@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:passioemployee/model/model_attendance_getBydate.dart';
 import 'package:passioemployee/model/putAPI_changeShiftWork.dart';
 import 'package:passioemployee/model/url/url_color.dart';
@@ -94,38 +95,8 @@ class _DetailsCalendarState extends State<DetailsCalendar> {
                       ],
                     ),
                     Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: Colors.lightGreen,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: FlatButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                    BorderRadius.circular(20),
-                                  ),
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => confirmDialog(work_id),
-                                      barrierDismissible: false,
-                                    );
-                                  },
-                                  child: Text(
-                                    'Đổi ca',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 20),
-                                  )),
-                            ),
-                          ],
-                        )),
+                      child: detailCard(),
+                    ),
                   ]),
                   SizedBox(
                     height: 20,
@@ -137,6 +108,100 @@ class _DetailsCalendarState extends State<DetailsCalendar> {
         ],
       ),
     );
+  }
+
+  Widget detailCard() {
+    DateTime now = DateTime.now();
+    DateTime dateInShift = DateTime.parse(day);
+    bool compared = dateInShift.isBefore(now);
+    print("DateInShift is before now : ${compared}");
+    if (compared) {
+      if (data.present) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 30,
+              decoration: BoxDecoration(
+                color: Colors.lightGreen,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: FlatButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  onPressed: () {},
+                  child: Text(
+                    'Present',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20),
+                  )),
+            ),
+          ],
+        );
+      } else {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 30,
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: FlatButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  onPressed: () {},
+                  child: Text(
+                    'Absent',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20),
+                  )),
+            ),
+          ],
+        );
+      }
+    } else {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            height: 30,
+            decoration: BoxDecoration(
+              color: Colors.lightGreen,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: FlatButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => confirmDialog(work_id),
+                    barrierDismissible: false,
+                  );
+                },
+                child: Text(
+                  'Đổi ca',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20),
+                )),
+          ),
+        ],
+      );
+    }
   }
 
   Widget card(String tittle, String txt) {
@@ -167,16 +232,17 @@ class _DetailsCalendarState extends State<DetailsCalendar> {
       actions: [
         FlatButton(
           child: Text("Không"),
-          onPressed:  () {
+          onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         FlatButton(
           child: Text("Có"),
-          onPressed:  () async {
+          onPressed: () async {
             var prefs = await SharedPreferences.getInstance();
             PutAPIChangeShiftWork _apiChangeShiftWork = PutAPIChangeShiftWork();
-            int resultChangeShiftWork = await _apiChangeShiftWork.changeShiftWork(work_id,  prefs.getString('token'));
+            int resultChangeShiftWork = await _apiChangeShiftWork
+                .changeShiftWork(work_id, prefs.getString('token'));
             if (resultChangeShiftWork == 200) {
               await _showDialog('Đổi ca thành công !');
               Navigator.push(
