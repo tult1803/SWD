@@ -172,11 +172,16 @@ class ShiftCheckState extends State {
     setState(() {
       token = prefes.get('token');
       empId = prefes.get('id_emp');
-      fromDate ='${DateTime(DateTime.now().year, DateTime.now().month)}';
-      toDate = '${DateTime.now()}';
+      fromDate ='${DateTime(DateTime.now().year, DateTime.now().month).toString().substring(0, 10).trim()}';
+      toDate = '${DateTime.now().toString().substring(0, 10).trim()}';
     });
     _data = await _getTotalTimeAPI.getTotalTime(token, empId, fromDate, toDate);
     setState(() {
+      list.clear();
+      _data.values.last.forEach((element) {
+        dynamic data = element;
+        list.add(AttendanceAPI.fromJson(data));
+      });
       totalTime = '${_data.values.first}';
       if(totalTime.contains('.')){
         int day = int.parse(totalTime.substring(0, totalTime.indexOf('.')));
