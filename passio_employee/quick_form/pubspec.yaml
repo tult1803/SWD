@@ -1,0 +1,25 @@
+name: quick_form
+description: Quickly and Magically build forms in a Flutter application easily
+homepage: https://github.com/ahammer/flutter_form_helper
+github: https://github.com/ahammer/flutter_form_helper
+version: 1.0.1
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  effective_dart: ^1.2.0
+
+flutter:
+  uses-material-design: true
+
+  module:
+    androidX: true
+    androidPackage: com.example.flutter_form_helper
+    iosBundleIdentifier: com.example.flutterFormHelper
