@@ -197,7 +197,7 @@ class MoreContactState extends State {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.messenger, color: Color(0xFF2845E7)), // icon
+                          Icon(Icons.message, color: Color(0xFF2845E7)), // icon
                           // Text("Nhắn tin", style: TextStyle(color: Color(0xFF2845E7)),),// text
                         ],
                       ),
