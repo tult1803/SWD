@@ -63,7 +63,7 @@ Widget container_Calendar(BuildContext context, int count,Color color_status,Str
   RandomColor _randomColor = RandomColor(); // Random màu
   return Container(
     margin: EdgeInsets.only(left: 5, top: 10),
-    height: 80,
+    height: 110,
     child: Row(
       children: [
         CircleAvatar(
@@ -119,20 +119,15 @@ Widget container_Calendar(BuildContext context, int count,Color color_status,Str
                               _sendDataToDetailPeopleScreen(context, dataPeople);
                             },
                           )]),
-                    // Text("${name_emp}", style: TextStyle(
-                    //   fontWeight: FontWeight.w600,
-                    //   fontSize: 18,
-                    // ),),
-                    // alignment: Alignment.centerLeft,
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 20.0, top: 10),
-                //   child: Container(
-                //     child: checkStatus(check, objective),
-                //     alignment: Alignment.centerLeft,
-                //   ),
-                // ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 35.0),
+                  child: Container(
+                    child:  Text("${dataPeople.store_name}", style: TextStyle(fontWeight: FontWeight.w300, fontSize: 13)),
+                    alignment: Alignment.centerLeft,
+                  ),
+                ),
               ],
             ),
           ),
